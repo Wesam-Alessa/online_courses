@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:get_storage/get_storage.dart';
+//import 'package:get_storage/get_storage.dart';
 import 'package:online_courses/bloc/font/font_event.dart';
 import 'package:online_courses/bloc/font/font_state.dart';
 import 'package:online_courses/services/font_services.dart';
 
 class FontBloc extends Bloc<FontEvent, FontState> {
-  final GetStorage _storage = GetStorage();
+  //final GetStorage _storage = GetStorage();
 
   FontBloc()
     : super(

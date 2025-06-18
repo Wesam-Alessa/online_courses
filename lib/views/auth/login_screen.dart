@@ -1,10 +1,29 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:online_courses/core/utils/validators.dart';
 import 'package:online_courses/routes/app_routes.dart';
 import 'package:online_courses/views/widgets/common/custom_button.dart';
+import 'package:online_courses/views/widgets/common/custom_textField.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,48 +75,45 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                      prefixIcon: const Icon(Icons.email_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        CustomTextfield(
+                          label: "Email",
+                          prefixIxon: Icons.email_outlined,
+                          controller: _emailController,
+                          validate: FormValidators.validateEmail,
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 20),
+                        CustomTextfield(
+                          label: "Password",
+                          prefixIxon: Icons.lock_outline,
+                          controller: _passwordController,
+                          validate: FormValidators.validatePassword,
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed:
+                                () => Get.toNamed(AppRoutes.forgotPassword),
+                            child: Text(
+                              "Forgot Password?",
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        CustomButton(text: "Login", onPressed: _handleLogin),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      suffixIcon: const Icon(Icons.visibility_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: ()=> Get.toNamed(AppRoutes.forgotPassword),
-                      child: Text(
-                        "Forgot Password?",
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomButton(text: "Login", onPressed: () => Get.offAllNamed(AppRoutes.home)),
+
                   const SizedBox(height: 20),
                   Row(
                     children: [
@@ -162,5 +178,9 @@ class LoginScreen extends StatelessWidget {
       text: "",
       onPressed: onPressed,
     );
+  }
+
+  void _handleLogin() {
+    Get.offAllNamed(AppRoutes.home);
   }
 }

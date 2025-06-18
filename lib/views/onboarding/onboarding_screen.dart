@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_courses/services/storage_service.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
 import 'package:online_courses/core/theme/app_colors.dart';
@@ -36,6 +37,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           "Monitor your progress, earn certification, and achieve your learning goals with detailed analytics.",
     ),
   ];
+
+  void _completeOnboarding() async {
+    await StorageService.setFirstTime(false);
+    Get.offAllNamed(AppRoutes.login);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             top: 50,
             right: 20,
             child: TextButton(
-              onPressed: () => Get.offAllNamed(AppRoutes.login),
+              onPressed: _completeOnboarding,
               child: const Text(
                 "Skip",
                 style: TextStyle(
@@ -89,7 +96,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_currentPage == _pages.length - 1) {
-                      Get.offAllNamed(AppRoutes.login);
+                      _completeOnboarding();
                     } else {
                       _pageController.nextPage(
                         duration: Duration(milliseconds: 300),

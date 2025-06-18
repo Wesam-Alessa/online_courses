@@ -5,6 +5,7 @@ import 'package:online_courses/views/auth/register_screen.dart';
 import 'package:online_courses/views/home/home_screen.dart';
 import 'package:online_courses/views/onboarding/onboarding_screen.dart';
 import 'package:online_courses/views/splash/splash_screen.dart';
+import 'package:online_courses/views/teacher/teacher_home_screen.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -13,6 +14,7 @@ class AppRoutes {
   static const String login = '/login';
   static const String register = '/register';
   static const String forgotPassword = '/forgot-password';
+ static const String teacherHome = '/teacher/home';
 
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -29,6 +31,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
         case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+        case teacherHome:
+        return MaterialPageRoute(builder: (_) => const TeacherHomeScreen());
       default:
         return MaterialPageRoute(
           builder:
