@@ -1,10 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_courses/core/utils/validators.dart';
 import 'package:online_courses/models/user_model.dart';
 import 'package:online_courses/routes/app_routes.dart';
 import 'package:online_courses/views/widgets/common/custom_button.dart';
-import 'package:online_courses/views/widgets/common/custom_textField.dart';
+import 'package:online_courses/views/widgets/common/custom_text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -94,7 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        CustomTextfield(
+                        CustomTextField(
                           label: "Full Name",
                           prefixIxon: Icons.person_outline,
                           controller: _fullNameController,
@@ -102,15 +104,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 20),
 
-                        CustomTextfield(
+                        CustomTextField(
                           label: "Email",
                           prefixIxon: Icons.email_outlined,
                           controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
                           validate: FormValidators.validateEmail,
                         ),
                         const SizedBox(height: 20),
 
-                        CustomTextfield(
+                        CustomTextField(
                           label: "Password",
                           prefixIxon: Icons.lock_outline,
                           controller: _passwordController,
@@ -119,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 20),
 
-                        CustomTextfield(
+                        CustomTextField(
                           label: "Confirm Password",
                           prefixIxon: Icons.lock_outline,
                           controller: _conPasswordController,
@@ -168,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       const Text("Already have an account?"),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () =>Get.back(),
                         child: Text(
                           "Login",
                           style: TextStyle(
@@ -193,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (_selectedRole == UserRole.teacher) {
         Get.offAllNamed(AppRoutes.teacherHome);
       } else {
-        Get.offAllNamed(AppRoutes.home);
+        Get.offAllNamed(AppRoutes.main);
       }
     } else if (_selectedRole != null) {
       ScaffoldMessenger.of(context).showSnackBar(

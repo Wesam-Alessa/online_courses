@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:online_courses/core/utils/validators.dart';
 import 'package:online_courses/routes/app_routes.dart';
 import 'package:online_courses/views/widgets/common/custom_button.dart';
-import 'package:online_courses/views/widgets/common/custom_textField.dart';
+import 'package:online_courses/views/widgets/common/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        CustomTextfield(
+                        CustomTextField(
                           label: "Email",
                           prefixIxon: Icons.email_outlined,
                           controller: _emailController,
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                         const SizedBox(height: 20),
-                        CustomTextfield(
+                        CustomTextField(
                           label: "Password",
                           prefixIxon: Icons.lock_outline,
                           controller: _passwordController,
@@ -181,6 +181,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleLogin() {
-    Get.offAllNamed(AppRoutes.home);
+    if (_formKey.currentState!.validate()) {
+      Get.offAllNamed(AppRoutes.main);
+    }
   }
 }

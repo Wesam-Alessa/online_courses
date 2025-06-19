@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomTextfield extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final String label;
   final String? hint;
   final IconData? prefixIxon;
@@ -13,7 +13,7 @@ class CustomTextfield extends StatefulWidget {
   final int maxLines;
   final bool enabled;
   final FocusNode? focusNode;
-  const CustomTextfield({
+  const CustomTextField({
     super.key,
     required this.label,
     this.hint,
@@ -30,10 +30,10 @@ class CustomTextfield extends StatefulWidget {
   });
 
   @override
-  State<CustomTextfield> createState() => _CustomTextfieldState();
+  State<CustomTextField> createState() => _CustomTextfieldState();
 }
 
-class _CustomTextfieldState extends State<CustomTextfield> {
+class _CustomTextfieldState extends State<CustomTextField> {
   bool _obscureText = false;
   @override
   void initState() {
@@ -59,7 +59,11 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         suffixIcon:
             widget.obscureText
                 ? IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
                   icon: Icon(
                     _obscureText
                         ? Icons.visibility_outlined
@@ -69,11 +73,23 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                 : widget.suffixIxon != null
                 ? Icon(widget.suffixIxon)
                 : null,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.grey.shade300)),
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color:Theme.of(context).primaryColor)),
-                errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.red)),
-                focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.red)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.red),
+        ),
       ),
     );
   }
